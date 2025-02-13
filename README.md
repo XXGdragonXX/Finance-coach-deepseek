@@ -1,1 +1,1 @@
-# FMCG-analysis-deepseek
+# Financial Adivisor leveraging qwen model
