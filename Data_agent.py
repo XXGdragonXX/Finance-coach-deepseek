@@ -91,34 +91,73 @@ class analysisAgent():
             "creditScore": 750
             }
         
-    def agentBudgetingAndExpenseTracking(self,userInput):
+    def agentBudgetingAndExpenseTracking(self, userInput):
         payload = userInput
-        recurringExpenses = payload['expenseDetails']['recurringExpenses']
+        
+        # Extracting relevant financial details
         totalSalary = payload['incomeDetails']['monthlyIncome']
+        recurringExpenses = payload['expenseDetails']['recurringExpenses']
         location = payload['user']['location']
         loans = payload['debtInformation']['loans']
-        creditCard = payload['debtInformation']['creditCards']
+        creditCards = payload['debtInformation']['creditCards']
+        
+        # Constructing the refined prompt
         prompt = f"""
-        I want to manage my finances effectively. Here are my details:
-        total salary = {totalSalary}
-        recurring exoenses = {recurringExpenses}
-        location = {location}
-        loans = {loans}
-        credit cards = {creditCard}
-        minimum saving = 20 % of {totalSalary}
-        Based on this information:
-        Suggest an ideal budget allocation for each expense category in dictionary format.
-        Track my expenses and alert me if I exceed my budget in any category in table format.
-        Do not give any extra information and strictly only provide dictionary and table 
-        the columns should strictly be 
-        |Category|Budget|Spent|Difference|Alert|
-        Alert should be Within Budget , Exceeds Budgets
+        You are an AI financial assistant helping a user manage their finances.
+        Below are the details of their financial situation:
+        
+        - **Total Salary:** ₹{totalSalary}
+        - **Recurring Expenses:** {recurringExpenses}
+        - **Location:** {location}
+        - **Loans:** {loans}
+        - **Credit Cards:** {creditCards}
+        - **Minimum Recommended Savings:** 20% of ₹{totalSalary} = ₹{totalSalary * 0.2}
+        
+        ### **Tasks**
+        1️⃣ **Budget Allocation:**  
+        - Suggest an **ideal budget allocation** for each category (in JSON format).  
+        - Ensure that the total allocation does not exceed the user's total salary.  
+        - Include categories like Rent, Utilities, Groceries, Transportation, Entertainment, Savings, Debt Repayment, and Miscellaneous.  
+        
+        2️⃣ **Expense Tracking Alert:**  
+        - Compare actual **spent** values against budgeted amounts and flag categories where the user has exceeded the budget.  
+        - Present the data in a **table format** with columns:  
+            **|Category | Budget | Spent | Difference | Alert|**  
+        - The **Alert** column should contain:
+            - `"Within Budget"` if within limits
+            - `"Exceeds Budget"` if overspending is detected
+
+        ### **Response Format**
+        **Budget Allocation (JSON Object):**
+        ```json
+        {{
+        "Rent": XX,
+        "Utilities": XX,
+        "Groceries": XX,
+        "Transportation": XX,
+        "Entertainment": XX,
+        "Savings": XX,
+        "Debt Repayment": XX,
+        "Miscellaneous": XX
+        }}
+        ```
+        
+        **Expense Tracking Table:**
+        ```
+        | Category       | Budget  | Spent  | Difference | Alert          |
+        |---------------|---------|--------|-----------|---------------|
+        | Rent         | XX      | XX     | ±XX       | Within Budget / Exceeds Budget |
+        ```
+        
+        **DO NOT** provide any extra explanation—only return the requested JSON and table.
         """
 
+        # Call the model
         model = LLM_model(prompt)
         response = model.llm_model()
 
         return response
+
 
 
     def extractTableAndDictionary(self,response):
