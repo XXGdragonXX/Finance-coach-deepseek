@@ -90,6 +90,16 @@ class analysisAgent():
             "creditScore": 750
             }
 
+    def uiInteractionAgent(self):
+        payload = self.testPayload()
+        
+
+
+ 
+
+
+        
+
     def agentBudgetingAndExpenseTracking(self):
         payload = self.testPayload()
         recurringExpenses = payload['expenseDetails']['recurringExpenses']
@@ -119,6 +129,8 @@ class analysisAgent():
 
         return response
 
+    def agent
+
     def extractTableAndDictionary(self,response):
         # Extract the dictionary
         dict_pattern = r"\{[^{}]+\}"
@@ -145,7 +157,7 @@ class analysisAgent():
 
 
 
-    def testModel(self):
+    def mainModel(self):
 
         output = self.agentBudgetingAndExpenseTracking()
         budget,tracker = self.extractTableAndDictionary(output)
@@ -158,6 +170,8 @@ class analysisAgent():
             print(tracker.head())
         else:
             print("could not geenrate the tracker.....")
+
+        return budget , tracker
         
 
 
