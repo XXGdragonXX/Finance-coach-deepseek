@@ -120,7 +120,6 @@ class analysisAgent():
 
         return response
 
-    def agent
 
     def extractTableAndDictionary(self,response):
         # Extract the dictionary
