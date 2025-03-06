@@ -1,6 +1,8 @@
 import streamlit as st
 import json
 
+from Data_agent import analysisAgent
+
 def main():
     st.title("Personal Finance Coach")
     
@@ -96,7 +98,11 @@ def main():
             "taxInformation": {"taxBracket": tax_bracket, "taxSavingInvestments": tax_saving_investments},
             "creditScore": credit_score
         }
-        st.json(user_data)
+        analyser = analysisAgent(user_data)
+        budget , tracker = analyser.mainModel()
+        st.table(tracker)
+        # st.json(user_data)
+
 
 if __name__ == "__main__":
     main()

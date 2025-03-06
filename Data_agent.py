@@ -8,7 +8,8 @@ import pandas as pd
 
 
 class analysisAgent():
-    def __init__(self):
+    def __init__(self,input):
+        self.input = input
         pass
         
 
@@ -89,19 +90,9 @@ class analysisAgent():
             },
             "creditScore": 750
             }
-
-    def uiInteractionAgent(self):
-        payload = self.testPayload()
         
-
-
- 
-
-
-        
-
-    def agentBudgetingAndExpenseTracking(self):
-        payload = self.testPayload()
+    def agentBudgetingAndExpenseTracking(self,userInput):
+        payload = userInput
         recurringExpenses = payload['expenseDetails']['recurringExpenses']
         totalSalary = payload['incomeDetails']['monthlyIncome']
         location = payload['user']['location']
@@ -159,7 +150,7 @@ class analysisAgent():
 
     def mainModel(self):
 
-        output = self.agentBudgetingAndExpenseTracking()
+        output = self.agentBudgetingAndExpenseTracking(self.input)
         budget,tracker = self.extractTableAndDictionary(output)
         if budget:
             print(budget)
@@ -175,8 +166,8 @@ class analysisAgent():
         
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    agent = analysisAgent()
+#     agent = analysisAgent()
 
-    agent.testModel()
+#     agent.testModel()
