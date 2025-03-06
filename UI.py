@@ -101,7 +101,7 @@ def main():
         analyser = analysisAgent(user_data)
         budget , tracker = analyser.mainModel()
         st.table(tracker)
-        # st.json(user_data)
+        st.json(user_data)
 
 
 if __name__ == "__main__":
