@@ -11,106 +11,20 @@ class analysisAgent():
     def __init__(self,input):
         self.input = input
         
-
-    def testPayload(self):
-        print("Giving the Test payload to the agent weeeeeee")
-        return {
-            "user": {
-                "name": "John Doe",
-                "age": 30,
-                "location": "Mumbai, India"
-            },
-            "incomeDetails": {
-                "monthlyIncome": 80000,
-                "incomeSources": [
-                {
-                    "type": "Salary",
-                    "amount": 70000
-                },
-                {
-                    "type": "Freelancing",
-                    "amount": 10000
-                }
-                ]
-            },
-            "expenseDetails": {
-                "recurringExpenses": {
-                "rent": 20000,
-                "utilities": 5000,
-                "groceries": 10000,
-                "transportation": 5000,
-                "entertainment": 5000,
-                "other": 1000
-                }
-            },
-            "debtInformation": {
-                "loans": [
-                {
-                    "type": "Home Loan",
-                    "outstandingAmount": 1200000,
-                    "monthlyEMI": 15000
-                }
-                ],
-                "creditCards": [
-                {
-                    "bank": "ABC Bank",
-                    "outstandingBalance": 20000,
-                    "minimumDue": 2000
-                }
-                ]
-            },
-            "financialGoals": {
-                "shortTerm": [
-                {
-                    "goal": "Vacation",
-                    "amount": 50000,
-                    "timeFrame": "6 months"
-                }
-                ],
-                "longTerm": [
-                {
-                    "goal": "Retirement Fund",
-                    "amount": 5000000,
-                    "timeFrame": "20 years"
-                }
-                ]
-            },
-            "investmentPreferences": {
-                "riskTolerance": "Moderate",
-                "preferredInvestmentTypes": ["Mutual Funds", "Stocks"]
-            },
-            "savingsDetails": {
-                "currentSavings": 200000,
-                "preferredSavingMethods": ["Fixed Deposit", "Recurring Deposit"]
-            },
-            "taxInformation": {
-                "taxBracket": "20%",
-                "taxSavingInvestments": ["PPF", "ELSS"]
-            },
-            "creditScore": 750
-            }
-
     def agentBudgetingAndExpenseTracking(self, userInput):
         payload = userInput
-        
-        # Extracting relevant financial details
-        totalSalary = payload['incomeDetails']['monthlyIncome']
-        recurringExpenses = payload['expenseDetails']['recurringExpenses']
-        location = payload['user']['location']
-        loans = payload['debtInformation']['loans']
-        creditCards = payload['debtInformation']['creditCards']
+        # totalSalary = payload['incomeDetails']['monthlyIncome']
+        # recurringExpenses = payload['expenseDetails']['recurringExpenses']
+        # location = payload['user']['location']
+        # loans = payload['debtInformation']['loans']
+        # creditCards = payload['debtInformation']['creditCards']
         
         # Constructing the refined prompt
         prompt = f"""
         You are an AI financial assistant helping a user manage their finances.
-        Below are the details of their financial situation:
-        
-        - **Total Salary:** ₹{totalSalary}
-        - **Recurring Expenses:** {recurringExpenses}
-        - **Location:** {location}
-        - **Loans:** {loans}
-        - **Credit Cards:** {creditCards}
-        - **Minimum Recommended Savings:** 20% of ₹{totalSalary} = ₹{totalSalary * 0.2}
+        Below are the details of their financial situation in dictionary format:
+
+        {payload}
         
         ### **Tasks**
         1️⃣ **Budget Allocation:**  
@@ -125,28 +39,6 @@ class analysisAgent():
         - The **Alert** column should contain:
             - `"Within Budget"` if within limits
             - `"Exceeds Budget"` if overspending is detected
-
-        ### **Response Format**
-        **Budget Allocation (JSON Object):**
-        ```json
-        {{
-        "Rent": XX,
-        "Utilities": XX,
-        "Groceries": XX,
-        "Transportation": XX,
-        "Entertainment": XX,
-        "Savings": XX,
-        "Debt Repayment": XX,
-        "Miscellaneous": XX
-        }}
-        ```
-        
-        **Expense Tracking Table:**
-        ```
-        | Category       | Budget  | Spent  | Difference | Alert          |
-        |---------------|---------|--------|-----------|---------------|
-        | Rent         | XX      | XX     | ±XX       | Within Budget / Exceeds Budget |
-        ```
         
         **DO NOT** provide any extra explanation—only return the requested JSON and table.
         """
