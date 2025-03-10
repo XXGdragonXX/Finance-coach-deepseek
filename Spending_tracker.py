@@ -11,6 +11,7 @@ class realTimeAgent():
         self.input = input
 
     def giveSpendingAnalysis(self, userInput):
+        pass
         
 
 

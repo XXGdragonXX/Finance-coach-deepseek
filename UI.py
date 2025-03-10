@@ -11,7 +11,7 @@ from Data_agent import analysisAgent
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-def main():
+def mainform():
     st.title("🏦 Personal Finance Coach")
     st.write("Welcome to your personal finance coach! Track, analyze, and optimize your financial health.")
     
@@ -86,6 +86,36 @@ def main():
         }
         st.session_state['page'] = "Output"
         st.rerun()
+
+def expenseForm():
+    st.title("Your expense analysis")
+    st.write ("Here you can added your expenses and we will analyse and give you details of what you are doing wrong")
+    with st.form("expense_form"):
+        with st.form("expense_input_form"):
+        st.subheader("Monthly Expenses")
+        rent = st.number_input("Rent", min_value=0, value=20000)
+        utilities = st.number_input("Utilities", min_value=0, value=5000)
+        groceries = st.number_input("Groceries", min_value=0, value=10000)
+        transportation = st.number_input("Transportation", min_value=0, value=5000)
+        entertainment = st.number_input("Entertainment", min_value=0, value=5000)
+        other = st.number_input("Other", min_value=0, value=1000)
+        
+        submitted_expenses = st.form_submit_button("Submit Expenses")
+    
+    if submitted_expenses:
+        st.session_state['expenses'] = {
+            "rent": rent,
+            "utilities": utilities,
+            "groceries": groceries,
+            "transportation": transportation,
+            "entertainment": entertainment,
+            "other": other
+        }
+        st.session_state['page'] = "ExpenseAnalysis" 
+        st.rerun()
+
+
+
     
 if "page" not in st.session_state:
     st.session_state['page'] = "Input"
@@ -98,16 +128,6 @@ elif st.session_state['page'] == "Output":
     
     budget = analyser.mainModel()
     sorted_budget = dict(sorted(budget.items(), key=lambda item: item[1], reverse=True))
-
-    # fig, ax = plt.subplots(figsize=(10, 6))
-    # sns.set_theme(style="whitegrid")
-    # sns.barplot(x=list(sorted_budget.values()), y=list(sorted_budget.keys()), palette="coolwarm", ax=ax)
-    # ax.set_xlabel("Amount (INR)", fontsize=12)
-    # ax.set_ylabel("Category", fontsize=12)
-    # ax.set_title("Monthly Budget Allocation", fontsize=14, fontweight='bold')
-    # for i, value in enumerate(sorted_budget.values()):
-    #     ax.text(value + 500, i, f"{value:,}", va='center', fontsize=11, color='black')
-    # st.pyplot(fig)
     fig = px.bar(
         x=list(sorted_budget.keys()),
         y=list(sorted_budget.values()),
@@ -138,8 +158,19 @@ elif st.session_state['page'] == "Output":
         st.rerun()
     if st.button("Analyse your spending Based on the fridge"):
         st.session_state['page'] = "Expense Input"
+        st.rerun()
 
 elif st.session_state['page'] == "Expense Input":
-    st.title("Your expense analysis")
-    st.write ("Here you can added your expenses and we will analyse and give you details of what you are doing wrong")
+    expense_form()
+    if st.button("Go Back"):
+        st.session_state['page'] == "Input"
+        st.rerun()
+
+elif st.session_state['page']=="ExpenseAnalysis" 
+    st.json(st.session_state['expenses'])
+    if st.button("Go Back"):
+        st.session_state['page'] = "Expense Input"
+        st.rerun()
+
+
 
