@@ -3,6 +3,10 @@ import json
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 from Data_agent import analysisAgent 
+import logging
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 def format_amount(x, pos):
     """Formats the amount with commas and abbreviation (k, M, etc.)."""
@@ -175,10 +179,14 @@ def main():
     if analysis_type == "Budget Chart":
         if st.button("Get Budget Chart"): 
             # st.json(user_data)
-            budget = analyser.mainModel() 
+            budget = analyser.mainModel()
+            logging.info(budget)
+
             if not isinstance(budget, dict) or not budget:
                 st.error("Invalid or empty budget data received. Please check the data source.")
             else:
+                logging.info("Budget data retrieved successfully.")
+
                 fig = generate_bar_chart(budget)
                 st.pyplot(fig)
                 st.write("This chart shows a breakdown of monthly expenses.")
