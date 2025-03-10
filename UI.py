@@ -90,8 +90,7 @@ def mainform():
 def expenseForm():
     st.title("Your expense analysis")
     st.write ("Here you can added your expenses and we will analyse and give you details of what you are doing wrong")
-    with st.form("expense_form"):
-        with st.form("expense_input_form"):
+    with st.form("expense_input_form"):
         st.subheader("Monthly Expenses")
         rent = st.number_input("Rent", min_value=0, value=20000)
         utilities = st.number_input("Utilities", min_value=0, value=5000)
