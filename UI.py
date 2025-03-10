@@ -1,7 +1,7 @@
 import streamlit as st
 import json
 
-from Data_agent import analysisAgent , 
+from Data_agent import analysisAgent 
 
 def main():
     st.title("Personal Finance Coach")
