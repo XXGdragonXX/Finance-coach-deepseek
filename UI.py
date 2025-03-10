@@ -119,14 +119,14 @@ elif st.session_state['page'] == "Output":
     )
     
     # Update layout for better readability
-    fig.update_traces(textposition='outside')  # Place text outside bars
+    fig.update_traces(textposition='outside')  
     fig.update_layout(
         xaxis_title="Category",
         yaxis_title="Amount (INR)",
         title_font_size=20,
-        title_x=0.5,  # Center the title
-        showlegend=False,  # Hide legend
-        hovermode="x unified"  # Show hover info for all bars at once
+        title_x=0.5,  
+        showlegend=False, 
+        hovermode="x unified"  
     )
     
     # Display the Plotly chart
@@ -136,3 +136,10 @@ elif st.session_state['page'] == "Output":
     if st.button("Go Back"):
         st.session_state['page'] = "Input"
         st.rerun()
+    if st.button("Analyse your spending Based on the fridge"):
+        st.session_state['page'] = "Expense Input"
+
+elif st.session_state['page'] == "Expense Input":
+    st.title("Your expense analysis")
+    st.write ("Here you can added your expenses and we will analyse and give you details of what you are doing wrong")
+
