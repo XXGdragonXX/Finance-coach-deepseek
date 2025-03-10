@@ -275,7 +275,7 @@ class analysisAgent():
 
     def mainModel2(self):
         output = self.agentAnalyticsAndReporting(self.input)
-        analysis = self.extractTableAndDictionary(ouput)
+        analysis = self.extractTableAndDictionary(output)
         if analysis:
             print(analysis)
 
