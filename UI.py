@@ -114,7 +114,7 @@ def main():
             budget = analyser.mainModel()
             logging.info(budget)
             logging.info("Budget data retrieved successfully.")
-            sorted_budget = dict(sorted(budget_data.items(), key=lambda item: item[1], reverse=True))
+            sorted_budget = dict(sorted(budget.items(), key=lambda item: item[1], reverse=True))
             fig, ax = plt.subplots(figsize=(10, 6))
             sns.set_theme(style="whitegrid")
             sns.barplot(x=list(sorted_budget.values()), y=list(sorted_budget.keys()), palette="coolwarm", ax=ax)
