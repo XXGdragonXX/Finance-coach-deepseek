@@ -13,11 +13,8 @@ logging.basicConfig(level=logging.INFO,
 def home_page():
     st.title("🏦 Personal Finance Coach")
     st.write("Welcome to your personal finance coach! Track, analyze, and optimize your financial health.")
-    if st.button("Submit Details"):
-        st.success("Details submitted successfully!")
-    if st.button("Next Page"):
-        st.session_state['page'] = "User Info"
-    if st.button("Skip"):
+    st.write("By proceeding, you agree to the compliance terms.")
+    if st.button("Let's Go!"):
         st.session_state['page'] = "User Info"
 
 def user_info_page():
@@ -27,7 +24,6 @@ def user_info_page():
     location = st.text_input("Location", "Mumbai, India")
     if st.button("Submit Details"):
         st.success("Details submitted successfully!")
-    if st.button("Next Page"):
         st.session_state['page'] = "Income"
     if st.button("Skip"):
         st.session_state['page'] = "Income"
@@ -45,7 +41,6 @@ def income_page():
             income_sources.append({"type": type_, "amount": amount})
     if st.button("Submit Details"):
         st.success("Details submitted successfully!")
-    if st.button("Next Page"):
         st.session_state['page'] = "Expenses"
     if st.button("Skip"):
         st.session_state['page'] = "Expenses"
@@ -62,7 +57,6 @@ def expenses_page():
     }
     if st.button("Submit Details"):
         st.success("Details submitted successfully!")
-    if st.button("Next Page"):
         st.session_state['page'] = "Debt"
     if st.button("Skip"):
         st.session_state['page'] = "Debt"
@@ -80,7 +74,6 @@ def debt_page():
             loans.append({"type": loan_type, "outstandingAmount": outstanding_amount, "monthlyEMI": monthly_emi})
     if st.button("Submit Details"):
         st.success("Details submitted successfully!")
-    if st.button("Next Page"):
         st.session_state['page'] = "Budget Chart"
     if st.button("Skip"):
         st.session_state['page'] = "Budget Chart"
@@ -103,7 +96,6 @@ def budget_chart_page(user_data):
         st.pyplot(fig)
     if st.button("Submit Details"):
         st.success("Details submitted successfully!")
-    if st.button("Next Page"):
         st.session_state['page'] = "Analytics"
 
 def analytics_page(user_data):
@@ -114,16 +106,6 @@ def analytics_page(user_data):
         st.json(analysis)
     if st.button("Submit Details"):
         st.success("Details submitted successfully!")
-
-# Sidebar navigation
-selected = option_menu(
-    menu_title="Personal Finance Coach", 
-    options=["Home", "User Info", "Income", "Expenses", "Debt", "Budget Chart", "Analytics"],
-    icons=["house", "person", "wallet", "receipt", "credit-card", "bar-chart", "graph"],
-    menu_icon="cast", 
-    default_index=0,
-    orientation="horizontal"
-)
 
 # Page routing
 if "page" not in st.session_state:
