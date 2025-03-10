@@ -102,6 +102,7 @@ elif selected == "Expenses":
 elif selected == "Debt":
     user_data["debtInformation"] = debt_page()
 elif selected == "Budget Chart":
+    logging.Info(user_data)
     budget_chart_page(user_data)
 elif selected == "Analytics":
     analytics_page(user_data)
