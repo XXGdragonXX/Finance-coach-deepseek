@@ -20,7 +20,7 @@ class analysisAgent():
         # creditCards = payload['debtInformation']['creditCards']
         
         # Constructing the refined prompt
-       f"""
+        f"""
         You are an AI financial assistant helping a user manage their finances.
         Below are the details of their financial situation in JSON format:
 
