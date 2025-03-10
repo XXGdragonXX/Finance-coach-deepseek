@@ -8,72 +8,6 @@ import logging
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-def format_amount(x, pos):
-    """Formats the amount with commas and abbreviation (k, M, etc.)."""
-    if x >= 1e6:
-        s = '{:1.1f}M'.format(x*1e-6)
-    elif x >= 1e3:
-        s = '{:1.1f}k'.format(x*1e-3)
-    else:
-        s = '{:,.0f}'.format(x) #Add commas to the amount
-    return s
-
-def generate_bar_chart(budget):
-    """Generates a beautiful and interactive bar chart."""
-
-    labels = list(budget.keys())
-    values = list(budget.values())
-
-    # Create the bar chart
-    fig, ax = plt.subplots(figsize=(10, 6))  # Adjust figure size for better display
-
-    # Define custom colors for the bars
-    colors = plt.cm.viridis(np.linspace(0.4, 0.8, len(labels)))  # Use a colormap
-
-    bars = ax.bar(labels, values, color=colors, edgecolor='black', linewidth=0.7)
-
-    # Customize the chart
-    ax.set_xlabel("Expense Category", fontsize=12)
-    ax.set_ylabel("Amount (in INR)", fontsize=12)
-    ax.set_title("Monthly Expense Breakdown", fontsize=14, fontweight='bold')
-    plt.xticks(rotation=45, ha="right", fontsize=10)  # Rotate x-axis labels
-
-    # Format y-axis to display amounts with commas and abbreviations
-    formatter = mticker.FuncFormatter(format_amount)
-    ax.yaxis.set_major_formatter(formatter)
-
-    # Add gridlines for better readability
-    ax.grid(axis='y', linestyle='--', alpha=0.7)
-
-    # Remove spines (optional, for a cleaner look)
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-
-    # Add data labels above the bars (with formatting)
-    for bar in bars:
-        yval = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width()/2, yval, formatter(yval),
-                ha='center', va='bottom', fontsize=9, color='black')
-
-
-    # Function to display value on hover (tooltip-like behavior) using st.write
-    def add_tooltip(bar, label, value):
-        """Adds tooltip-like behavior for Streamlit charts."""
-        bar.set_picker(True) #Enable picking on the bars
-
-        def on_pick(event): #Define the on_pick function
-           #check event occurs on this bar
-            if event.artist == bar:
-                st.write(f"Category: {label}, Amount: {format_amount(value,0)}") #Format value
-                return True
-        return on_pick
-    #Add function to each bar in the chart
-    for i, bar in enumerate(bars):
-        bar.on_pick = add_tooltip(bar, labels[i], values[i])
-
-
-    plt.tight_layout()
-    return fig
 
 
 def main():
@@ -182,9 +116,8 @@ def main():
             budget = analyser.mainModel()
             logging.info(budget)
             logging.info("Budget data retrieved successfully.")
+            st.json(budget)
 
-            fig = generate_bar_chart(budget)
-            st.pyplot(fig)
             st.write("This chart shows a breakdown of monthly expenses.")
 
     elif analysis_type == "Analytics":
