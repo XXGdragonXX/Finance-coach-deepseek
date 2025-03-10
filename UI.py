@@ -123,6 +123,7 @@ def main():
             ax.set_title("Monthly Budget Allocation", fontsize=14, fontweight='bold')
             for i, value in enumerate(sorted_budget.values()):
                 ax.text(value + 500, i, f"{value:,}", va='center', fontsize=11, color='black')
+            st.pyplot(fig)
             st.write("This chart shows a breakdown of monthly expenses.")
 
     elif analysis_type == "Analytics":
