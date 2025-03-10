@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-
+import matplotlib.pyplot as plt
 from Data_agent import analysisAgent 
 
 def main():
@@ -102,7 +102,19 @@ def main():
     if st.button("GET BUDGET AND TRACKER TABLE"):
         budget , tracker = analyser.mainModel()
         st.table(tracker)
-        st.json(budget)
+        labels = list(budget.keys())
+        values = list(budget.values())
+        fig, ax = plt.subplots()  
+        ax.bar(labels, values)
+        ax.set_xlabel("Expense Category")
+        ax.set_ylabel("Amount (in INR)")
+        ax.set_title("Monthly Expense Breakdown")
+        plt.xticks(rotation=45, ha="right")
+        plt.tight_layout()
+        st.pyplot(fig)
+        st.write("This chart shows a breakdown of monthly expenses.")
+
+
 
     if st.button("GET ANALYTICS"):
         analysis = analyser.mainModel2()
