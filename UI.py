@@ -4,11 +4,9 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 from Data_agent import analysisAgent 
 import logging
-
+import seaborn as sns
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
-
-
 
 def main():
     st.title("Personal Finance Coach")
@@ -116,8 +114,15 @@ def main():
             budget = analyser.mainModel()
             logging.info(budget)
             logging.info("Budget data retrieved successfully.")
-            st.json(budget)
-
+            sorted_budget = dict(sorted(budget_data.items(), key=lambda item: item[1], reverse=True))
+            fig, ax = plt.subplots(figsize=(10, 6))
+            sns.set_theme(style="whitegrid")
+            sns.barplot(x=list(sorted_budget.values()), y=list(sorted_budget.keys()), palette="coolwarm", ax=ax)
+            ax.set_xlabel("Amount (INR)", fontsize=12)
+            ax.set_ylabel("Category", fontsize=12)
+            ax.set_title("Monthly Budget Allocation", fontsize=14, fontweight='bold')
+            for i, value in enumerate(sorted_budget.values()):
+                ax.text(value + 500, i, f"{value:,}", va='center', fontsize=11, color='black')
             st.write("This chart shows a breakdown of monthly expenses.")
 
     elif analysis_type == "Analytics":
