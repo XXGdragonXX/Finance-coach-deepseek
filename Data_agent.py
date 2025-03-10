@@ -10,7 +10,6 @@ import pandas as pd
 class analysisAgent():
     def __init__(self,input):
         self.input = input
-        pass
         
 
     def testPayload(self):
@@ -90,7 +89,7 @@ class analysisAgent():
             },
             "creditScore": 750
             }
-        
+
     def agentBudgetingAndExpenseTracking(self, userInput):
         payload = userInput
         
@@ -158,6 +157,81 @@ class analysisAgent():
 
         return response
 
+    def agentAnalyticsAndReporting(self, userInput):
+
+        payload = userInput
+        totalSalary = payload['incomeDetails']['monthlyIncome']
+        recurringExpenses = payload['expenseDetails']['recurringExpenses']
+        totalExpenses = sum(recurringExpenses.values())
+        savings = payload['savingsDetails']['currentSavings']
+        debtLoans = payload['debtInformation']['loans']
+        creditCards = payload['debtInformation']['creditCards']
+
+        # Debt Details
+        totalLoanOutstanding = sum(loan['outstandingAmount'] for loan in debtLoans)
+        totalCreditOutstanding = sum(card['outstandingBalance'] for card in creditCards)
+        totalDebt = totalLoanOutstanding + totalCreditOutstanding
+
+        # Key Financial Ratios
+        savingsRate = round((savings / totalSalary) * 100, 2)
+        debtToIncomeRatio = round((totalDebt / totalSalary) * 100, 2)
+        expenseToIncomeRatio = round((totalExpenses / totalSalary) * 100, 2)
+
+        # Constructing the prompt for analytics
+        prompt = f"""
+        You are an AI financial analytics assistant. Analyze the user's financial data and provide insights.
+        
+        ### **Financial Overview**
+        - **Total Income:** ₹{totalSalary}
+        - **Total Expenses:** ₹{totalExpenses}
+        - **Current Savings:** ₹{savings}
+        - **Total Debt (Loans + Credit Cards):** ₹{totalDebt}
+
+        ### **Key Ratios**
+        - **Savings Rate:** {savingsRate}%
+        - **Debt-to-Income Ratio:** {debtToIncomeRatio}%
+        - **Expense-to-Income Ratio:** {expenseToIncomeRatio}%
+
+        ### **Tasks**
+        1️⃣ **Financial Summary**  
+        - Generate a clear summary of the user's financial health.  
+        - Identify if the user is overspending or managing finances well.  
+
+        2️⃣ **Insights & Trends**  
+        - Detect patterns (e.g., increasing expenses, low savings, high debt).  
+        - Suggest possible improvements in financial habits.  
+
+        3️⃣ **Monthly & Yearly Report (JSON Format)**  
+        - Provide a structured report of expenses, savings, and debt for the past month and year.  
+
+        **Response Format:**  
+        ```json
+        {{
+            "summary": "Your finances are stable, but you are spending 50% of your income on rent.",
+            "recommendations": [
+                "Reduce entertainment expenses by 10% to save more.",
+                "Increase investments in Mutual Funds."
+            ],
+            "monthly_report": {{
+                "income": {totalSalary},
+                "expenses": {totalExpenses},
+                "savings": {savings},
+                "debt": {totalDebt}
+            }},
+            "yearly_projection": {{
+                "expected_savings": {savings + (totalSalary - totalExpenses) * 12},
+                "expected_debt_reduction": {totalDebt - (sum(loan['monthlyEMI'] for loan in debtLoans) * 12)}
+            }}
+        }}
+        ```
+        **Only return the structured JSON response. No additional explanation.**
+        """
+
+        # Call the model
+        model = LLM_model(prompt)
+        response = model.llm_model()
+
+        return response
 
 
     def extractTableAndDictionary(self,response):
@@ -187,20 +261,25 @@ class analysisAgent():
 
 
     def mainModel(self):
-
         output = self.agentBudgetingAndExpenseTracking(self.input)
         budget,tracker = self.extractTableAndDictionary(output)
         if budget:
             print(budget)
         else : 
             print("couldnt extract the budget")
-
         if not tracker.empty:
             print(tracker.head())
         else:
             print("could not geenrate the tracker.....")
-
         return budget , tracker
+
+    def mainModel2(self):
+        output = self.agentAnalyticsAndReporting(self.input)
+        analysis = self.extractTableAndDictionary(ouput)
+        if analysis:
+            print(analysis)
+
+        return analysis
         
 
 

@@ -1,7 +1,7 @@
 import streamlit as st
 import json
 
-from Data_agent import analysisAgent
+from Data_agent import analysisAgent , 
 
 def main():
     st.title("Personal Finance Coach")
@@ -86,22 +86,28 @@ def main():
     credit_score = st.slider("Credit Score", min_value=300, max_value=900, value=750)
     
     # Submit Button
-    if st.button("Submit"):
-        user_data = {
-            "user": {"name": name, "age": age, "location": location},
-            "incomeDetails": {"monthlyIncome": monthly_income, "incomeSources": income_sources},
-            "expenseDetails": {"recurringExpenses": recurring_expenses},
-            "debtInformation": {"loans": loans, "creditCards": credit_cards},
-            "financialGoals": {"shortTerm": short_term_goals},
-            "investmentPreferences": {"riskTolerance": risk_tolerance, "preferredInvestmentTypes": preferred_investments},
-            "savingsDetails": {"currentSavings": current_savings, "preferredSavingMethods": preferred_saving_methods},
-            "taxInformation": {"taxBracket": tax_bracket, "taxSavingInvestments": tax_saving_investments},
-            "creditScore": credit_score
-        }
-        analyser = analysisAgent(user_data)
+    user_data = {
+        "user": {"name": name, "age": age, "location": location},
+        "incomeDetails": {"monthlyIncome": monthly_income, "incomeSources": income_sources},
+        "expenseDetails": {"recurringExpenses": recurring_expenses},
+        "debtInformation": {"loans": loans, "creditCards": credit_cards},
+        "financialGoals": {"shortTerm": short_term_goals},
+        "investmentPreferences": {"riskTolerance": risk_tolerance, "preferredInvestmentTypes": preferred_investments},
+        "savingsDetails": {"currentSavings": current_savings, "preferredSavingMethods": preferred_saving_methods},
+        "taxInformation": {"taxBracket": tax_bracket, "taxSavingInvestments": tax_saving_investments},
+        "creditScore": credit_score
+    }
+    analyser = analysisAgent(user_data)
+
+    if st.button("GET BUDGET AND TRACKER TABLE"):
         budget , tracker = analyser.mainModel()
         st.table(tracker)
-        st.json(user_data)
+        st.json(budget)
+
+    if st.button("GET ANALYTICS"):
+        analysis = analyser.mainModel2()
+        st.json(analysis)
+
 
 
 if __name__ == "__main__":
