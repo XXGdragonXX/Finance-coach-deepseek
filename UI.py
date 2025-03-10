@@ -94,23 +94,21 @@ if st.session_state['page'] == "Input":
 elif st.session_state['page'] == "Output":
     st.header("📊 Financial Analysis")
     analyser = analysisAgent(st.session_state['user_data'])
+    budget = analyser.mainModel()
+    sorted_budget = dict(sorted(budget.items(), key=lambda item: item[1], reverse=True))
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.set_theme(style="whitegrid")
+    sns.barplot(x=list(sorted_budget.values()), y=list(sorted_budget.keys()), palette="coolwarm", ax=ax)
+    ax.set_xlabel("Amount (INR)", fontsize=12)
+    ax.set_ylabel("Category", fontsize=12)
+    ax.set_title("Monthly Budget Allocation", fontsize=14, fontweight='bold')
+    for i, value in enumerate(sorted_budget.values()):
+        ax.text(value + 500, i, f"{value:,}", va='center', fontsize=11, color='black')
+    st.pyplot(fig)
     
-    if st.button("Generate Budget Chart"): 
-        budget = analyser.mainModel()
-        sorted_budget = dict(sorted(budget.items(), key=lambda item: item[1], reverse=True))
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.set_theme(style="whitegrid")
-        sns.barplot(x=list(sorted_budget.values()), y=list(sorted_budget.keys()), palette="coolwarm", ax=ax)
-        ax.set_xlabel("Amount (INR)", fontsize=12)
-        ax.set_ylabel("Category", fontsize=12)
-        ax.set_title("Monthly Budget Allocation", fontsize=14, fontweight='bold')
-        for i, value in enumerate(sorted_budget.values()):
-            ax.text(value + 500, i, f"{value:,}", va='center', fontsize=11, color='black')
-        st.pyplot(fig)
-    
-    if st.button("Generate Analytics"): 
-        analysis = analyser.mainModel2()
-        st.json(analysis)
+    # if st.button("Generate Analytics"): 
+    #     analysis = analyser.mainModel2()
+    #     st.json(analysis)
     
     if st.button("Go Back"):
         st.session_state['page'] = "Input"
