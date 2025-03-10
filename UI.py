@@ -11,7 +11,7 @@ from Data_agent import analysisAgent
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-def mainform():
+def mainForm():
     st.title("🏦 Personal Finance Coach")
     st.write("Welcome to your personal finance coach! Track, analyze, and optimize your financial health.")
     
@@ -120,7 +120,7 @@ if "page" not in st.session_state:
     st.session_state['page'] = "Input"
 
 if st.session_state['page'] == "Input":
-    main()
+    mainForm()
 elif st.session_state['page'] == "Output":
     st.header("📊 Financial Analysis")
     analyser = analysisAgent(st.session_state['user_data'])
@@ -160,7 +160,7 @@ elif st.session_state['page'] == "Output":
         st.rerun()
 
 elif st.session_state['page'] == "Expense Input":
-    expense_form()
+    expenseForm()
     if st.button("Go Back"):
         st.session_state['page'] == "Input"
         st.rerun()
