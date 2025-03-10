@@ -94,9 +94,8 @@ user_data = {}
 if selected == "Home":
     home_page()
 elif selected == "User Info":
-    if st.button('Submit'):
-        user_data = user_info_page()
-        logging.info(user_data)
+    user_data = user_info_page()
+    logging.info(user_data)
 elif selected == "Income":
     user_data["incomeDetails"] = income_page()
 elif selected == "Expenses":
