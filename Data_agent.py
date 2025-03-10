@@ -13,13 +13,6 @@ class analysisAgent():
         
     def agentBudgetingAndExpenseTracking(self, userInput):
         payload = userInput
-        # totalSalary = payload['incomeDetails']['monthlyIncome']
-        # recurringExpenses = payload['expenseDetails']['recurringExpenses']
-        # location = payload['user']['location']
-        # loans = payload['debtInformation']['loans']
-        # creditCards = payload['debtInformation']['creditCards']
-        
-        # Constructing the refined prompt
         prompt = f"""
             You are an AI financial assistant helping a user manage their finances.
             Below are the details of their financial situation in JSON format:
@@ -94,7 +87,6 @@ class analysisAgent():
         # Call the model
         model = LLM_model(prompt)
         response = model.llm_model()
-
         return response
 
     def agentAnalyticsAndReporting(self, userInput):
