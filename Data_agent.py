@@ -55,39 +55,7 @@ class analysisAgent():
             "Miscellaneous": XXXX
             }}
             ```
-
-            2️⃣ **Expense Tracking and Alerts (Table):**
-
-            Assume the user has provided the following actual expenses for the month (these are example values; replace with actual user input if available in the payload - if not assume these):
-
-            *   Rent/Mortgage: XXXX
-            *   Utilities: XXXX
-            *   Groceries: XXXX
-            *   Transportation: XXXX
-            *   Entertainment: XXXX
-            *   Savings: XXXX
-            *   Debt Repayment: XXXX
-            *   Healthcare: XXXX
-            *   Miscellaneous: XXXX
-
-
-            Create a table comparing the budgeted amounts (from the JSON above) to the actual expenses.  Include the difference and an alert indicating whether the user is within budget or exceeding the budget for each category.
-
-            **Table Format:**
-
-            | Category           | Budget  | Spent  | Difference | Alert          |
-            |--------------------|-------- |------- |------------|----------------|
-            | Rent/Mortgage      | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
-            | Utilities          | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
-            | Groceries          | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
-            | Transportation     | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
-            | Entertainment      | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
-            | Savings            | YYYY    | XXXX   | ZZZZ       | Within Budget  |
-            | Debt Repayment     | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
-            | Healthcare         | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
-            | Miscellaneous      | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
-
-            **DO NOT** provide any extra explanation—only return the requested JSON and table.
+            **DO NOT** provide any extra explanation—only return the requested JSON .
         """
         # Call the model
         model = LLM_model(prompt)
@@ -171,48 +139,28 @@ class analysisAgent():
         return response
 
 
-    def extractTableAndDictionary(self,response):
+    def extract(self,response):
         # Extract the dictionary
         dict_pattern = r"\{[^{}]+\}"
         dict_match = re.search(dict_pattern, response)
         if dict_match:
-            budgetAllocation = eval(dict_match.group())
+            dict_val = eval(dict_match.group())
         else:
-            budgetAllocation = None
-
-        # Extract the table
-        table_pattern = r"\|.*\|\n\|.*\|\n(\|.*\|\n)*"
-        table_match = re.search(table_pattern, response)
-        if table_match:
-            table_text = table_match.group()
-            # Convert table to DataFrame
-            rows = [row.strip().split("|")[1:-1] for row in table_text.strip().split("\n")]
-            headers = [header.strip() for header in rows[0]]
-            data = [[item.strip() for item in row] for row in rows[2:]]
-            expenseTracking = pd.DataFrame(data, columns=headers)
-        else:
-            expenseTracking = None
-
-        return budgetAllocation , expenseTracking
-
-
+            dict_val = None
+        return dict_val 
 
     def mainModel(self):
         output = self.agentBudgetingAndExpenseTracking(self.input)
-        budget,tracker = self.extractTableAndDictionary(output)
+        budget = self.extract(output)
         if budget:
             print(budget)
         else : 
             print("couldnt extract the budget")
-        if not tracker.empty:
-            print(tracker.head())
-        else:
-            print("could not geenrate the tracker.....")
-        return budget , tracker
+        return budget 
 
     def mainModel2(self):
         output = self.agentAnalyticsAndReporting(self.input)
-        analysis = self.extractTableAndDictionary(output)
+        analysis = self.extract(output)
         if analysis:
             print(analysis)
 
