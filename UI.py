@@ -32,7 +32,7 @@ def main():
         "groceries": st.number_input("Groceries", min_value=0, value=10000),
         "transportation": st.number_input("Transportation", min_value=0, value=5000),
         "entertainment": st.number_input("Entertainment", min_value=0, value=5000),
-        "other": st.number_input("Other", min_value=0, value=1000),
+        
     }
     
     # Debt Information

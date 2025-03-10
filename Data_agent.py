@@ -17,13 +17,18 @@ class analysisAgent():
             You are an AI financial assistant helping a user manage their finances.
             Below are the details of their financial situation in JSON format:
 
-            {payload}
+            monthly income = {payload["incomeDetails"]["monthlyIncome"]}
+            debt information = {payload['debtInformation']}
+            financial goals = {payload['financialGoals']}
+            investment preferences = {payload['investmentPreferences']}
+            savings details = {payload['savingsDetails']}
+
 
             ### **Tasks**
 
             1️⃣ **Budget Allocation (JSON):**
 
-            Based on the user's monthly income of {payload["incomeDetails"]["monthlyIncome"]}, provide a recommended monthly budget allocation in JSON format.  Consider the user's recurring expenses, debt information, financial goals, and savings details.  Ensure the total allocation does not exceed the user's monthly income.  Use the following categories:
+            Based on the user's Information mentioned above , provide a recommended monthly budget allocation in JSON format.  Consider all the users information given above.  Ensure the total allocation does not exceed the user's monthly income.  Use the following categories:
 
             *   Rent/Mortgage
             *   Utilities (Electricity, Water, Gas, Internet, Phone)
@@ -39,15 +44,15 @@ class analysisAgent():
 
             ```json
             {{
-            "Rent/Mortgage": 1000,
-            "Utilities": 200,
-            "Groceries": 300,
-            "Transportation": 150,
-            "Entertainment": 100,
-            "Savings": 500,
-            "Debt Repayment": 200,
-            "Healthcare": 50,
-            "Miscellaneous": 50
+            "Rent/Mortgage": XXXX,
+            "Utilities": XXXX,
+            "Groceries": XXXX,
+            "Transportation": XXXX,
+            "Entertainment": XXXX,
+            "Savings": XXXX,
+            "Debt Repayment": XXXX,
+            "Healthcare": XXXX,
+            "Miscellaneous": XXXX
             }}
             ```
 
