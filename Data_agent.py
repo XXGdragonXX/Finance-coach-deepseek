@@ -20,76 +20,76 @@ class analysisAgent():
         # creditCards = payload['debtInformation']['creditCards']
         
         # Constructing the refined prompt
-        f"""
-        You are an AI financial assistant helping a user manage their finances.
-        Below are the details of their financial situation in JSON format:
+        prompt = f"""
+            You are an AI financial assistant helping a user manage their finances.
+            Below are the details of their financial situation in JSON format:
 
-        {payload}
+            {payload}
 
-        ### **Tasks**
+            ### **Tasks**
 
-        1️⃣ **Budget Allocation (JSON):**
+            1️⃣ **Budget Allocation (JSON):**
 
-        Based on the user's monthly income of {payload["incomeDetails"]["monthlyIncome"]}, provide a recommended monthly budget allocation in JSON format.  Consider the user's recurring expenses, debt information, financial goals, and savings details.  Ensure the total allocation does not exceed the user's monthly income.  Use the following categories:
+            Based on the user's monthly income of {payload["incomeDetails"]["monthlyIncome"]}, provide a recommended monthly budget allocation in JSON format.  Consider the user's recurring expenses, debt information, financial goals, and savings details.  Ensure the total allocation does not exceed the user's monthly income.  Use the following categories:
 
-        *   Rent/Mortgage
-        *   Utilities (Electricity, Water, Gas, Internet, Phone)
-        *   Groceries
-        *   Transportation (Car Payment, Gas/Public Transit, Maintenance)
-        *   Entertainment
-        *   Savings (Emergency Fund, Goals)
-        *   Debt Repayment (Loans, Credit Cards)
-        *   Healthcare (Insurance, Medical Expenses)
-        *   Miscellaneous (Personal Care, Clothing, etc.)
+            *   Rent/Mortgage
+            *   Utilities (Electricity, Water, Gas, Internet, Phone)
+            *   Groceries
+            *   Transportation (Car Payment, Gas/Public Transit, Maintenance)
+            *   Entertainment
+            *   Savings (Emergency Fund, Goals)
+            *   Debt Repayment (Loans, Credit Cards)
+            *   Healthcare (Insurance, Medical Expenses)
+            *   Miscellaneous (Personal Care, Clothing, etc.)
 
-        Example JSON format:
+            Example JSON format:
 
-        ```json
-        {{
-          "Rent/Mortgage": 1000,
-          "Utilities": 200,
-          "Groceries": 300,
-          "Transportation": 150,
-          "Entertainment": 100,
-          "Savings": 500,
-          "Debt Repayment": 200,
-          "Healthcare": 50,
-          "Miscellaneous": 50
-        }}
-        ```
+            ```json
+            {{
+            "Rent/Mortgage": 1000,
+            "Utilities": 200,
+            "Groceries": 300,
+            "Transportation": 150,
+            "Entertainment": 100,
+            "Savings": 500,
+            "Debt Repayment": 200,
+            "Healthcare": 50,
+            "Miscellaneous": 50
+            }}
+            ```
 
-        2️⃣ **Expense Tracking and Alerts (Table):**
+            2️⃣ **Expense Tracking and Alerts (Table):**
 
-        Assume the user has provided the following actual expenses for the month (these are example values; replace with actual user input if available in the payload - if not assume these):
+            Assume the user has provided the following actual expenses for the month (these are example values; replace with actual user input if available in the payload - if not assume these):
 
-        *   Rent/Mortgage: 1050
-        *   Utilities: 250
-        *   Groceries: 320
-        *   Transportation: 180
-        *   Entertainment: 120
-        *   Savings: 450
-        *   Debt Repayment: 220
-        *   Healthcare: 60
-        *   Miscellaneous: 70
+            *   Rent/Mortgage: 1050
+            *   Utilities: 250
+            *   Groceries: 320
+            *   Transportation: 180
+            *   Entertainment: 120
+            *   Savings: 450
+            *   Debt Repayment: 220
+            *   Healthcare: 60
+            *   Miscellaneous: 70
 
 
-        Create a table comparing the budgeted amounts (from the JSON above) to the actual expenses.  Include the difference and an alert indicating whether the user is within budget or exceeding the budget for each category.
+            Create a table comparing the budgeted amounts (from the JSON above) to the actual expenses.  Include the difference and an alert indicating whether the user is within budget or exceeding the budget for each category.
 
-        **Table Format:**
+            **Table Format:**
 
-        | Category           | Budget | Spent | Difference | Alert           |
-        |--------------------|--------|-------|------------|-----------------|
-        | Rent/Mortgage     | 1000   | 1050  | -50        | Exceeds Budget |
-        | Utilities          | 200    | 250   | -50        | Exceeds Budget |
-        | Groceries          | 300    | 320   | -20        | Exceeds Budget |
-        | Transportation     | 150    | 180   | -30        | Exceeds Budget |
-        | Entertainment      | 100    | 120   | -20        | Exceeds Budget |
-        | Savings            | 500    | 450   | 50         | Within Budget   |
-        | Debt Repayment     | 200    | 220   | -20        | Exceeds Budget |
-        | Healthcare         | 50     | 60    | -10        | Exceeds Budget |
-        | Miscellaneous      | 50     | 70    | -20        | Exceeds Budget |
+            | Category           | Budget | Spent | Difference | Alert           |
+            |--------------------|--------|-------|------------|-----------------|
+            | Rent/Mortgage     | 1000   | 1050  | -50        | Exceeds Budget |
+            | Utilities          | 200    | 250   | -50        | Exceeds Budget |
+            | Groceries          | 300    | 320   | -20        | Exceeds Budget |
+            | Transportation     | 150    | 180   | -30        | Exceeds Budget |
+            | Entertainment      | 100    | 120   | -20        | Exceeds Budget |
+            | Savings            | 500    | 450   | 50         | Within Budget   |
+            | Debt Repayment     | 200    | 220   | -20        | Exceeds Budget |
+            | Healthcare         | 50     | 60    | -10        | Exceeds Budget |
+            | Miscellaneous      | 50     | 70    | -20        | Exceeds Budget |
 
-        **DO NOT** provide any extra explanation—only return the requested JSON and table.
+            **DO NOT** provide any extra explanation—only return the requested JSON and table.
         """
         # Call the model
         model = LLM_model(prompt)
