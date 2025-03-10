@@ -165,7 +165,7 @@ elif st.session_state['page'] == "Expense Input":
         st.session_state['page'] == "Input"
         st.rerun()
 
-elif st.session_state['page']=="ExpenseAnalysis" 
+elif st.session_state['page']=="ExpenseAnalysis" :
     st.json(st.session_state['expenses'])
     if st.button("Go Back"):
         st.session_state['page'] = "Expense Input"
