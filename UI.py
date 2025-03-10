@@ -3,6 +3,7 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
+import plotly.express as px
 from streamlit_option_menu import option_menu
 from Data_agent import analysisAgent
 
@@ -97,15 +98,40 @@ elif st.session_state['page'] == "Output":
     
     budget = analyser.mainModel()
     sorted_budget = dict(sorted(budget.items(), key=lambda item: item[1], reverse=True))
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.set_theme(style="whitegrid")
-    sns.barplot(x=list(sorted_budget.values()), y=list(sorted_budget.keys()), palette="coolwarm", ax=ax)
-    ax.set_xlabel("Amount (INR)", fontsize=12)
-    ax.set_ylabel("Category", fontsize=12)
-    ax.set_title("Monthly Budget Allocation", fontsize=14, fontweight='bold')
-    for i, value in enumerate(sorted_budget.values()):
-        ax.text(value + 500, i, f"{value:,}", va='center', fontsize=11, color='black')
-    st.pyplot(fig)
+
+    # fig, ax = plt.subplots(figsize=(10, 6))
+    # sns.set_theme(style="whitegrid")
+    # sns.barplot(x=list(sorted_budget.values()), y=list(sorted_budget.keys()), palette="coolwarm", ax=ax)
+    # ax.set_xlabel("Amount (INR)", fontsize=12)
+    # ax.set_ylabel("Category", fontsize=12)
+    # ax.set_title("Monthly Budget Allocation", fontsize=14, fontweight='bold')
+    # for i, value in enumerate(sorted_budget.values()):
+    #     ax.text(value + 500, i, f"{value:,}", va='center', fontsize=11, color='black')
+    # st.pyplot(fig)
+    fig = px.bar(
+        x=list(sorted_budget.keys()),
+        y=list(sorted_budget.values()),
+        labels={"x": "Category", "y": "Amount (INR)"},
+        title="Monthly Budget Allocation",
+        text=[f"{value:,}" for value in sorted_budget.values()],  # Add values as text on bars
+        color=list(sorted_budget.values()),  # Add color gradient
+        color_continuous_scale=px.colors.sequential.Viridis  # Use a color scale
+    )
+    
+    # Update layout for better readability
+    fig.update_traces(textposition='outside')  # Place text outside bars
+    fig.update_layout(
+        xaxis_title="Category",
+        yaxis_title="Amount (INR)",
+        title_font_size=20,
+        title_x=0.5,  # Center the title
+        showlegend=False,  # Hide legend
+        hovermode="x unified"  # Show hover info for all bars at once
+    )
+    
+    # Display the Plotly chart
+    st.plotly_chart(fig, use_container_width=True)
+
     
     if st.button("Go Back"):
         st.session_state['page'] = "Input"
