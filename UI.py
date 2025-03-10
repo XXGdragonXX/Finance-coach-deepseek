@@ -13,12 +13,24 @@ logging.basicConfig(level=logging.INFO,
 def home_page():
     st.title("🏦 Personal Finance Coach")
     st.write("Welcome to your personal finance coach! Track, analyze, and optimize your financial health.")
+    if st.button("Submit Details"):
+        st.success("Details submitted successfully!")
+    if st.button("Next Page"):
+        st.session_state['page'] = "User Info"
+    if st.button("Skip"):
+        st.session_state['page'] = "User Info"
 
 def user_info_page():
     st.header("👤 User Information")
     name = st.text_input("Name", "John Doe")
     age = st.number_input("Age", min_value=18, max_value=100, value=30)
     location = st.text_input("Location", "Mumbai, India")
+    if st.button("Submit Details"):
+        st.success("Details submitted successfully!")
+    if st.button("Next Page"):
+        st.session_state['page'] = "Income"
+    if st.button("Skip"):
+        st.session_state['page'] = "Income"
     return {"name": name, "age": age, "location": location}
 
 def income_page():
@@ -31,6 +43,12 @@ def income_page():
             type_ = st.text_input(f"Source Type {i+1}", "Salary" if i == 0 else "Freelancing")
             amount = st.number_input(f"Amount {i+1}", min_value=0, value=70000 if i == 0 else 10000)
             income_sources.append({"type": type_, "amount": amount})
+    if st.button("Submit Details"):
+        st.success("Details submitted successfully!")
+    if st.button("Next Page"):
+        st.session_state['page'] = "Expenses"
+    if st.button("Skip"):
+        st.session_state['page'] = "Expenses"
     return {"monthlyIncome": monthly_income, "incomeSources": income_sources}
 
 def expenses_page():
@@ -42,6 +60,12 @@ def expenses_page():
         "Transportation": st.number_input("Transportation", min_value=0, value=5000),
         "Entertainment": st.number_input("Entertainment", min_value=0, value=5000),
     }
+    if st.button("Submit Details"):
+        st.success("Details submitted successfully!")
+    if st.button("Next Page"):
+        st.session_state['page'] = "Debt"
+    if st.button("Skip"):
+        st.session_state['page'] = "Debt"
     return {"recurringExpenses": recurring_expenses}
 
 def debt_page():
@@ -54,6 +78,12 @@ def debt_page():
             outstanding_amount = st.number_input(f"Outstanding Amount {i+1}", min_value=0, value=1200000)
             monthly_emi = st.number_input(f"Monthly EMI {i+1}", min_value=0, value=15000)
             loans.append({"type": loan_type, "outstandingAmount": outstanding_amount, "monthlyEMI": monthly_emi})
+    if st.button("Submit Details"):
+        st.success("Details submitted successfully!")
+    if st.button("Next Page"):
+        st.session_state['page'] = "Budget Chart"
+    if st.button("Skip"):
+        st.session_state['page'] = "Budget Chart"
     return {"loans": loans}
 
 def budget_chart_page(user_data):
@@ -71,6 +101,10 @@ def budget_chart_page(user_data):
         for i, value in enumerate(sorted_budget.values()):
             ax.text(value + 500, i, f"{value:,}", va='center', fontsize=11, color='black')
         st.pyplot(fig)
+    if st.button("Submit Details"):
+        st.success("Details submitted successfully!")
+    if st.button("Next Page"):
+        st.session_state['page'] = "Analytics"
 
 def analytics_page(user_data):
     st.header("📈 Financial Analytics")
@@ -78,6 +112,8 @@ def analytics_page(user_data):
     if st.button("Generate Analytics"): 
         analysis = analyser.mainModel2()
         st.json(analysis)
+    if st.button("Submit Details"):
+        st.success("Details submitted successfully!")
 
 # Sidebar navigation
 selected = option_menu(
@@ -90,22 +126,20 @@ selected = option_menu(
 )
 
 # Page routing
-user_data = {}
-if selected == "Home":
+if "page" not in st.session_state:
+    st.session_state['page'] = "Home"
+
+if st.session_state['page'] == "Home":
     home_page()
-elif selected == "User Info":
+elif st.session_state['page'] == "User Info":
     user_data = user_info_page()
-    logging.info(user_data)
-elif selected == "Income":
+elif st.session_state['page'] == "Income":
     user_data["incomeDetails"] = income_page()
-elif selected == "Expenses":
+elif st.session_state['page'] == "Expenses":
     user_data["expenseDetails"] = expenses_page()
-elif selected == "Debt":
+elif st.session_state['page'] == "Debt":
     user_data["debtInformation"] = debt_page()
-elif selected == "Budget Chart":
-    logging.info(user_data)
+elif st.session_state['page'] == "Budget Chart":
     budget_chart_page(user_data)
-elif selected == "Analytics":
+elif st.session_state['page'] == "Analytics":
     analytics_page(user_data)
-
-
