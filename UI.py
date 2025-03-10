@@ -100,6 +100,7 @@ def main():
     analyser = analysisAgent(user_data)
 
     if st.button("GET BUDGET AND TRACKER TABLE"):
+        st.json(user_data)
         budget , tracker = analyser.mainModel()
         st.table(tracker)
         labels = list(budget.keys())
