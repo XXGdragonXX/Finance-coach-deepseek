@@ -55,32 +55,32 @@ class analysisAgent():
 
             Assume the user has provided the following actual expenses for the month (these are example values; replace with actual user input if available in the payload - if not assume these):
 
-            *   Rent/Mortgage: 1050
-            *   Utilities: 250
-            *   Groceries: 320
-            *   Transportation: 180
-            *   Entertainment: 120
-            *   Savings: 450
-            *   Debt Repayment: 220
-            *   Healthcare: 60
-            *   Miscellaneous: 70
+            *   Rent/Mortgage: XXXX
+            *   Utilities: XXXX
+            *   Groceries: XXXX
+            *   Transportation: XXXX
+            *   Entertainment: XXXX
+            *   Savings: XXXX
+            *   Debt Repayment: XXXX
+            *   Healthcare: XXXX
+            *   Miscellaneous: XXXX
 
 
             Create a table comparing the budgeted amounts (from the JSON above) to the actual expenses.  Include the difference and an alert indicating whether the user is within budget or exceeding the budget for each category.
 
             **Table Format:**
 
-            | Category           | Budget | Spent | Difference | Alert           |
-            |--------------------|--------|-------|------------|-----------------|
-            | Rent/Mortgage     | 1000   | 1050  | -50        | Exceeds Budget |
-            | Utilities          | 200    | 250   | -50        | Exceeds Budget |
-            | Groceries          | 300    | 320   | -20        | Exceeds Budget |
-            | Transportation     | 150    | 180   | -30        | Exceeds Budget |
-            | Entertainment      | 100    | 120   | -20        | Exceeds Budget |
-            | Savings            | 500    | 450   | 50         | Within Budget   |
-            | Debt Repayment     | 200    | 220   | -20        | Exceeds Budget |
-            | Healthcare         | 50     | 60    | -10        | Exceeds Budget |
-            | Miscellaneous      | 50     | 70    | -20        | Exceeds Budget |
+            | Category           | Budget  | Spent  | Difference | Alert          |
+            |--------------------|-------- |------- |------------|----------------|
+            | Rent/Mortgage      | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
+            | Utilities          | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
+            | Groceries          | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
+            | Transportation     | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
+            | Entertainment      | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
+            | Savings            | YYYY    | XXXX   | ZZZZ       | Within Budget  |
+            | Debt Repayment     | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
+            | Healthcare         | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
+            | Miscellaneous      | YYYY    | XXXX   | ZZZZ       | Exceeds Budget |
 
             **DO NOT** provide any extra explanation—only return the requested JSON and table.
         """
