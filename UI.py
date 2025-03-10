@@ -84,7 +84,7 @@ def main():
             "creditScore": credit_score
         }
         st.session_state['page'] = "Output"
-        # st.experimental_rerun()
+        st.experimental_rerun()
     
 if "page" not in st.session_state:
     st.session_state['page'] = "Input"
@@ -109,4 +109,4 @@ elif st.session_state['page'] == "Output":
     
     if st.button("Go Back"):
         st.session_state['page'] = "Input"
-        # st.experimental_rerun()
+        st.experimental_rerun()
