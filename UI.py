@@ -90,6 +90,7 @@ selected = option_menu(
 )
 
 # Page routing
+user_data = {}
 if selected == "Home":
     home_page()
 elif selected == "User Info":
