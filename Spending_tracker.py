@@ -26,7 +26,7 @@ class spendAgent():
         response = model.llm_model()
         return response
 
-    def mainModel2():
+    def mainModel2(self):
         output = self.giveSpendingAnalysis()
         if output:
             return output
