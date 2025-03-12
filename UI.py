@@ -169,16 +169,12 @@ elif st.session_state['page'] == "Expense Input":
 
 elif st.session_state['page']=="ExpenseAnalysis" :
     # st.json(st.session_state['expenses'])
-    spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'],st.session_state['user_data']['user']['name'])
+    spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'])
     report = spendAnalyser.mainModel2()
     # Extract content after <Think> tag
-    if "<Think>" or "<think>" in report:
-        think_content = report.split("<Think>")[1].split("</Think>")[0].strip()
-        main_content = report.split("</Think>")[1].strip() 
-    else:
-        main_content = report
-    st.subheader("Budget Report")
-    st.write(main_content)
+
+    st.subheader(f" {,st.session_state['user_data']['user']['name']}'s Budget Report")
+    st.write(report)
     if st.button("Go Back"):
         st.session_state['page'] = "Expense Input"
         st.rerun()
