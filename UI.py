@@ -172,7 +172,7 @@ elif st.session_state['page']=="ExpenseAnalysis" :
     spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'],st.session_state['user_data']['user']['name'])
     report = spendAnalyser.mainModel2()
     # Extract content after <Think> tag
-    if "<Think>" in report:
+    if "<Think>" or "<think>" in report:
         think_content = report.split("<Think>")[1].split("</Think>")[0].strip()
         main_content = report.split("</Think>")[1].strip() 
     else:
