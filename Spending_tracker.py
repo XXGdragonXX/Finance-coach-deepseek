@@ -7,7 +7,7 @@ import pandas as pd
 from Data_agent import analysisAgent
 
 class spendAgent():
-    def __init__(self,input):
+    def __init__(self,input,budgetInput):
         self.input = input
         self.budgetInput = budgetInput
 
