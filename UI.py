@@ -6,6 +6,7 @@ import logging
 import plotly.express as px
 from streamlit_option_menu import option_menu
 from Data_agent import analysisAgent
+from Spending_tracker import spendAgent
 
 # Configure logging
 logging.basicConfig(level=logging.INFO,
@@ -127,6 +128,7 @@ elif st.session_state['page'] == "Output":
     
     budget = analyser.mainModel()
     sorted_budget = dict(sorted(budget.items(), key=lambda item: item[1], reverse=True))
+    st.session_state['budget'] = sorted_budget
     fig = px.bar(
         x=list(sorted_budget.keys()),
         y=list(sorted_budget.values()),
@@ -166,7 +168,11 @@ elif st.session_state['page'] == "Expense Input":
         st.rerun()
 
 elif st.session_state['page']=="ExpenseAnalysis" :
-    st.json(st.session_state['expenses'])
+    # st.json(st.session_state['expenses'])
+    spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'])
+    report = spendAnalyser.mainModel2()
+
+    st.write(report)
     if st.button("Go Back"):
         st.session_state['page'] = "Expense Input"
         st.rerun()
