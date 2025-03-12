@@ -174,7 +174,9 @@ elif st.session_state['page']=="ExpenseAnalysis" :
     # Extract content after <Think> tag
     if "<Think>" in report:
         think_content = report.split("<Think>")[1].split("</Think>")[0].strip()
-        main_content = report.split("</Think>")[1].strip()    # st.write(report) 
+        main_content = report.split("</Think>")[1].strip() 
+    else:
+        main_content = report
     st.subheader("Budget Report")
     st.write(main_content)
     if st.button("Go Back"):
