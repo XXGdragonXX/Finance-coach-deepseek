@@ -173,7 +173,7 @@ elif st.session_state['page']=="ExpenseAnalysis" :
     report = spendAnalyser.mainModel2()
     # Extract content after <Think> tag
 
-    st.subheader(f" {,st.session_state['user_data']['user']['name']}'s Budget Report")
+    st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
     st.write(report)
     if st.button("Go Back"):
         st.session_state['page'] = "Expense Input"
