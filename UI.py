@@ -169,7 +169,7 @@ elif st.session_state['page'] == "Expense Input":
 
 elif st.session_state['page']=="ExpenseAnalysis" :
     # st.json(st.session_state['expenses'])
-    spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'])
+    spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'],st.session_state['user_data']['user']['name'])
     report = spendAnalyser.mainModel2()
 
     st.write(report)

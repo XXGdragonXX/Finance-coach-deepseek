@@ -7,19 +7,25 @@ import pandas as pd
 from Data_agent import analysisAgent
 
 class spendAgent():
-    def __init__(self,input,budgetInput):
+    def __init__(self,input,budgetInput,name):
         self.input = input
         self.budgetInput = budgetInput
+        self.name = name
 
     def giveSpendingAnalysis(self):
 
+        
 
         prompt = f"""
 
             You are an expert in analysing budget and spending analysis , below in dictionary format I have given my overall spend in a month 
             {self.input}
-            I want you to create a report based on the below allocated budget given in dictionary form 
+            I want you to create a report based on the below allocated budget 
             {self.budgetInput}
+            ** Instructions ** 
+            1. Whatever money is left in income - overall spend is part of savings
+            2. The Heading of the report should be {self.name}'s Budget report
+            3. Keep it to point and do not give too much extra information 
         """
         
         model = LLM_model(prompt)
