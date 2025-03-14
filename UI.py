@@ -31,17 +31,7 @@ def mainForm():
                 type_ = st.text_input(f"Source Type {i+1}", "Salary" if i == 0 else "Freelancing")
                 amount = st.number_input(f"Amount {i+1}", min_value=0, value=70000 if i == 0 else 10000)
                 income_sources.append({"type": type_, "amount": amount})
-        
-        st.header("📉 Expense Details")
-        recurring_expenses = {
-            "rent": st.number_input("Rent", min_value=0, value=20000),
-            "utilities": st.number_input("Utilities", min_value=0, value=5000),
-            "groceries": st.number_input("Groceries", min_value=0, value=10000),
-            "transportation": st.number_input("Transportation", min_value=0, value=5000),
-            "entertainment": st.number_input("Entertainment", min_value=0, value=5000),
-            "other": st.number_input("Other", min_value=0, value=1000)
-        }
-        
+                
         st.header("💳 Debt Information")
         loans = []
         num_loans = st.number_input("Number of Loans", min_value=0, value=1)
