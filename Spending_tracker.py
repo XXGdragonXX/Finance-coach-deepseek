@@ -5,6 +5,7 @@ from model import LLM_model
 import re
 import pandas as pd
 from Data_agent import analysisAgent
+import logging
 
 class spendAgent():
     def __init__(self,input,budgetInput):
@@ -12,14 +13,23 @@ class spendAgent():
         self.budgetInput = budgetInput
 
     def giveSpendingAnalysis(self):
+        logging.info(self.budgetInput)
+        # savingsbyLlm = self.budgetInput['Savings']
+        # totalIncome = sum(self.sum(budgetInput.values()))
+        # prompt = f"""
 
-        BudgetbyLlm = self.budgetInput
+        #     The savings determined by the model is {savingsbyLlm} . 
+        #     Below the spendings done by the user has been given in dictionary format 
+        #     {self.input}
+        #     Do the summation of all the spendings
 
+
+        # """
         
         # model = LLM_model(prompt)
         # response = model.llm_model()
         # return response
-        return BudgetbyLlm
+        return "I am still testing this ..."
 
     def mainModel2(self):
         output = self.giveSpendingAnalysis()
