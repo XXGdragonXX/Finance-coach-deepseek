@@ -67,7 +67,6 @@ def mainForm():
         st.session_state['user_data'] = {
             "user": {"name": name, "age": age, "location": location},
             "incomeDetails": {"monthlyIncome": monthly_income, "incomeSources": income_sources},
-            "expenseDetails": {"recurringExpenses": recurring_expenses},
             "debtInformation": {"loans": loans},
             "financialGoals": {"shortTerm": short_term_goals, "LongTerm": long_term_goals},
             "investmentPreferences": {"riskTolerance": risk_tolerance, "preferredInvestmentTypes": investment_types},
