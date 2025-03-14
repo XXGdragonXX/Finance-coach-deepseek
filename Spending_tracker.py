@@ -13,24 +13,13 @@ class spendAgent():
 
     def giveSpendingAnalysis(self):
 
-        
+        BudgetbyLlm = self.budgetInput
 
-        prompt = f"""
-
-            You are an expert in analysing budget and spending analysis , below in dictionary format I have given my overall spend in a month 
-            {self.input}
-            I want you to create a report based on the below allocated budget 
-            {self.budgetInput}
-            create a table in the below format keeping the below format 
-            Category|Allocated (₹)|	Actual (₹)|	Surplus/Deficit (₹)|
-            ** Instructions ** 
-            1. Whatever money is left in income - overall spend is part of savings
-            3. Keep it to point and do not give too much extra information 
-        """
         
-        model = LLM_model(prompt)
-        response = model.llm_model()
-        return response
+        # model = LLM_model(prompt)
+        # response = model.llm_model()
+        # return response
+        return BudgetbyLlm
 
     def mainModel2(self):
         output = self.giveSpendingAnalysis()

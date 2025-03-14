@@ -87,7 +87,7 @@ def expenseForm():
         groceries = st.number_input("Groceries", min_value=0, value=10000)
         transportation = st.number_input("Transportation", min_value=0, value=5000)
         entertainment = st.number_input("Entertainment", min_value=0, value=5000)
-        debtRepayment = st.number_input("Debt Repaymen", min_value=0, value=1000)
+        debtRepayment = st.number_input("Debt Repayment", min_value=0, value=1000)
         healthcare = st.number_input("Healthcare",min_value=0, value=1000)
         miscellaneous = st.number_input("Miscellanous",min_value=0, value=1000)
         
