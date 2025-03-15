@@ -23,18 +23,25 @@ class spendAgent():
 
                 1. Savings determined by the model: {savingsbyLlm}
                 2. Actual savings of the user: {actualSaving}
-                3. Decided budget: {self.budgetInput}
-                4. Spending by the person: {self.input}
+                3. Decided budget: {self.budgetInput} (a dictionary where keys are expense categories and values are budgeted amounts)
+                4. Spending by the person: {self.input} (a dictionary where keys are expense categories and values are actual spending amounts)
 
                 Based on the information above, create a table with the following schema:
 
-                | Expense| Budgeted Amount | Actual Spending |Difference|Status|Variance (%)|
+                | Expense         | Budgeted Amount | Actual Spending | Difference | Status           | Variance (%) |
+                |-----------------|-----------------|-----------------|------------|------------------|--------------|
 
                 **Instructions:**
                 1. Only provide the table and strictly adhere to the schema.
-                2. For each expense category in `self.input`, calculate whether the user is underspending or overspending compared to the budget (`self.budgetInput`).
-                3. Ensure the table is clear, concise, and easy to read.
-                4. Do not include any additional explanations or text outside the table.
+                2. For each expense category in `self.input`, compare the actual spending with the corresponding budgeted amount in `self.budgetInput`.
+                3. Calculate the `Difference` as `Actual Spending - Budgeted Amount`.
+                4. Determine the `Status` as follows:
+                - If `Difference` is negative, label it as "Underspending".
+                - If `Difference` is positive, label it as "Overspending".
+                - If `Difference` is zero, label it as "On Budget".
+                5. Calculate the `Variance (%)` as `(Difference / Budgeted Amount) * 100`.
+                6. Ensure the table is clear, concise, and easy to read.
+                7. Do not include any additional explanations or text outside the table.
         """
         
         model = LLM_model(prompt)
