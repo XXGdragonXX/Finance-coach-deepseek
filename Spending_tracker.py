@@ -25,7 +25,11 @@ class spendAgent():
             The decided budget is {self.budgetInput}
             The spending by the person is {self.input}
 
-        Based on the information mentioned above , provide an overall analysis report . Keep it neat and to the point
+        Based on the information mentioned above create a table with the schema given below
+        |Expense|underspending/overspending|Amount|
+
+        ** Only give the table and no other information . 
+        ** Strictly stick to the schema
         """
         
         model = LLM_model(prompt)
