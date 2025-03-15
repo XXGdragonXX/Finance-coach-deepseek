@@ -16,7 +16,7 @@ class spendAgent():
         # logging.info(f"This is the budget we are getting from the llm geenrated using the intial user response {self.budgetInput}")
         savingsbyLlm = self.budgetInput['Savings']
         totalIncome = sum(self.budgetInput.values())
-        actualSaving = totalIncome - sum(self.input.values)
+        actualSaving = totalIncome - sum(self.input.values())
         # prompt = f"""
 
         #     The savings determined by the model is {savingsbyLlm} . 
