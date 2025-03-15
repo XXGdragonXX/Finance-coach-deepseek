@@ -47,7 +47,7 @@ class spendAgent():
         model = LLM_model(prompt)
         response = model.llm_model()
         table_pattern = r"Expense\tBudgeted Amount\tActual Spending\tDifference\tStatus\tVariance \(%\)\n([\s\S]*?)\n\n"
-        table_match = re.search(table_pattern, text)
+        table_match = re.search(table_pattern, response)
         if table_match:
             table = table_match.group(0).strip()
             return table
