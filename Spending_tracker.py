@@ -46,8 +46,13 @@ class spendAgent():
         
         model = LLM_model(prompt)
         response = model.llm_model()
-        return response
-
+        table_pattern = r"Expense\tBudgeted Amount\tActual Spending\tDifference\tStatus\tVariance \(%\)\n([\s\S]*?)\n\n"
+        table_match = re.search(table_pattern, text)
+        if table_match:
+            table = table_match.group(0).strip()
+            return table
+        else:
+            return f" couldnt generate the table  "
         # return f"""
         #         saving by llm = {savingsbyLlm}
         #         total income of the user  = {totalIncome}
