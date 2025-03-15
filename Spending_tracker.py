@@ -17,26 +17,27 @@ class spendAgent():
         savingsbyLlm = self.budgetInput['Savings']
         totalIncome = sum(self.budgetInput.values())
         actualSaving = totalIncome - sum(self.input.values())
-        # prompt = f"""
+        del self.budgetInput['Savings']
+        prompt = f"""
+            You are an expert in generating a financial report  
+            The savings determined by the model is {savingsbyLlm} . 
+            Actual savings of the user is {actualSaving}. 
+            The decided budget is {self.budgetInput}
+            The spending by the person is {self.input}
 
-        #     The savings determined by the model is {savingsbyLlm} . 
-        #     Below the spendings done by the user has been given in dictionary format 
-        #     {self.input}
-        #     Do the summation of all the spendings
-
-
-        # """
-        
-        # model = LLM_model(prompt)
-        # response = model.llm_model()
-        # return response
-
-        return f"""
-                saving by llm = {savingsbyLlm}
-                total income of the user  = {totalIncome}
-                actualSaving = {actualSaving}
-        
+        Based on the information mentioned above , provide an overall analysis report . Keep it neat and to the point
         """
+        
+        model = LLM_model(prompt)
+        response = model.llm_model()
+        return response
+
+        # return f"""
+        #         saving by llm = {savingsbyLlm}
+        #         total income of the user  = {totalIncome}
+        #         actualSaving = {actualSaving}
+        
+        # """
 
     def mainModel2(self):
         output = self.giveSpendingAnalysis()
