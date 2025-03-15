@@ -13,7 +13,7 @@ class spendAgent():
         self.budgetInput = budgetInput
 
     def giveSpendingAnalysis(self):
-        logging.info(f"This is the budget we are getting from the llm geenrated using the intial user response {self.budgetInput})
+        logging.info(f"This is the budget we are getting from the llm geenrated using the intial user response {self.budgetInput}")
         # savingsbyLlm = self.budgetInput['Savings']
         # totalIncome = sum(self.sum(budgetInput.values()))
         # prompt = f"""
