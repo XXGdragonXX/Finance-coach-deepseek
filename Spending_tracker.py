@@ -19,17 +19,22 @@ class spendAgent():
         actualSaving = totalIncome - sum(self.input.values())
         del self.budgetInput['Savings']
         prompt = f"""
-            You are an expert in generating a financial report  
-            The savings determined by the model is {savingsbyLlm} . 
-            Actual savings of the user is {actualSaving}. 
-            The decided budget is {self.budgetInput}
-            The spending by the person is {self.input}
+                You are an expert in generating detailed financial reports. Below is the financial data provided:
 
-        Based on the information mentioned above create a table with the schema given below
-        |Expense|underspending/overspending|Amount|
+                1. Savings determined by the model: {savingsbyLlm}
+                2. Actual savings of the user: {actualSaving}
+                3. Decided budget: {self.budgetInput}
+                4. Spending by the person: {self.input}
 
-        ** Only give the table and no other information . 
-        ** Strictly stick to the schema
+                Based on the information above, create a table with the following schema:
+
+                | Expense| Budgeted Amount | Actual Spending |Difference|Status|Variance (%)|
+
+                **Instructions:**
+                1. Only provide the table and strictly adhere to the schema.
+                2. For each expense category in `self.input`, calculate whether the user is underspending or overspending compared to the budget (`self.budgetInput`).
+                3. Ensure the table is clear, concise, and easy to read.
+                4. Do not include any additional explanations or text outside the table.
         """
         
         model = LLM_model(prompt)
