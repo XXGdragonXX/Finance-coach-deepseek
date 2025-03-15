@@ -48,11 +48,12 @@ class spendAgent():
         response = model.llm_model()
         table_pattern = r"Expense\tBudgeted Amount\tActual Spending\tDifference\tStatus\tVariance \(%\)\n([\s\S]*?)\n\n"
         table_match = re.search(table_pattern, response)
+        logging.info(table_match)
         if table_match:
             table = table_match.group(0).strip()
             return table
         else:
-            return f" couldnt generate the table  "
+            return response
         # return f"""
         #         saving by llm = {savingsbyLlm}
         #         total income of the user  = {totalIncome}
