@@ -13,9 +13,10 @@ class spendAgent():
         self.budgetInput = budgetInput
 
     def giveSpendingAnalysis(self):
-        logging.info(f"This is the budget we are getting from the llm geenrated using the intial user response {self.budgetInput}")
-        # savingsbyLlm = self.budgetInput['Savings']
-        # totalIncome = sum(self.sum(budgetInput.values()))
+        # logging.info(f"This is the budget we are getting from the llm geenrated using the intial user response {self.budgetInput}")
+        savingsbyLlm = self.budgetInput['Savings']
+        totalIncome = sum(self.budgetInput.values())
+        actualSaving = totalIncome - sum(self.input.values)
         # prompt = f"""
 
         #     The savings determined by the model is {savingsbyLlm} . 
@@ -29,7 +30,13 @@ class spendAgent():
         # model = LLM_model(prompt)
         # response = model.llm_model()
         # return response
-        return "I am still testing this ..."
+
+        return f"""
+                saving by llm = {savingsbyLlm}
+                total income of the user  = {totalIncome}
+                actualSaving = {actualSaving}
+        
+        """
 
     def mainModel2(self):
         output = self.giveSpendingAnalysis()
