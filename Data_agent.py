@@ -30,7 +30,7 @@ class analysisAgent():
 
             Based on the user's Information mentioned above , provide a recommended monthly budget allocation in JSON format.  Consider all the users information given above.  Ensure the total allocation does not exceed the user's monthly income.  Use the following categories:
 
-            *   Rent/Mortgage
+            *   Rent
             *   Utilities (Electricity, Water, Gas, Internet, Phone)
             *   Groceries
             *   Transportation (Car Payment, Gas/Public Transit, Maintenance)
@@ -44,7 +44,7 @@ class analysisAgent():
 
             ```json
             {{
-            "Rent/Mortgage": XXXX,
+            "Rent": XXXX,
             "Utilities": XXXX,
             "Groceries": XXXX,
             "Transportation": XXXX,
