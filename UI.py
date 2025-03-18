@@ -141,7 +141,6 @@ elif st.session_state['page'] == "Expense Input":
 
 elif st.session_state['page']=="ExpenseAnalysis" :
     # st.json(st.session_state['expenses'])
-    report = spendAnalyser.mainModel2()
     # Extract content after <Think> tag
 
     st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
@@ -168,8 +167,10 @@ elif st.session_state['page']=="ExpenseAnalysis" :
     
     # Display the Plotly chart
     st.plotly_chart(fig, use_container_width=True)
-    spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'])
-    st.write(report)
+    if st.session_state['expenses']:
+        spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'])
+        report = spendAnalyser.mainModel2()
+        st.write(report)
     if st.button("Go Back"):
         st.session_state['page'] = "Expense Input"
         st.rerun()
