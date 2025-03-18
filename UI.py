@@ -167,7 +167,7 @@ elif st.session_state['page']=="ExpenseAnalysis" :
     
     # Display the Plotly chart
     st.plotly_chart(fig, use_container_width=True)
-    if st.session_state['expenses']:
+    if 'expenses' in st.session_state.keys():
         spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'])
         report = spendAnalyser.mainModel2()
         st.write(report)
