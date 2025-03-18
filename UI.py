@@ -136,7 +136,7 @@ elif st.session_state['page'] == "Output":
 elif st.session_state['page'] == "Expense Input":
     expenseForm()
     if st.button("Go Back"):
-        st.session_state['page'] == "Output"
+        st.session_state['page'] = "Output"
         st.rerun()
 
 elif st.session_state['page']=="ExpenseAnalysis" :
