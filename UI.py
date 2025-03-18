@@ -142,7 +142,7 @@ elif st.session_state['page'] == "Expense Input":
 elif st.session_state['page']=="ExpenseAnalysis" :
     # st.json(st.session_state['expenses'])
     # Extract content after <Think> tag
-
+    sorted_budget = st.session_state['budget']
     st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
     fig = px.bar(
     x=list(sorted_budget.keys()),
