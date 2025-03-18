@@ -94,7 +94,6 @@ def expenseForm():
         submitted_expenses = st.form_submit_button("Submit Expenses")
     
     if submitted_expenses:
-        del st.session_state['expenses']
         st.session_state['expenses'] = {
             "Rent": rent,
             "Utilities": utilities,
@@ -178,6 +177,8 @@ elif st.session_state['page'] == "ExpenseAnalysis":
         st.write(st.session_state['spending_report'])
         
         if st.button("Go Back"):
+            del st.session_state['expenses']
+            del st.session_state['spending_report']
             st.session_state['page'] = "Expense Input"
             st.rerun()
     
