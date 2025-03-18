@@ -117,11 +117,13 @@ if st.session_state['page'] == "Input":
     mainForm()
 elif st.session_state['page'] == "Output":
     st.header("📊 Financial Analysis")
-    analyser = analysisAgent(st.session_state['user_data'])
     
-    budget = analyser.mainModel()
-    sorted_budget = dict(sorted(budget.items(), key=lambda item: item[1], reverse=True))
-    st.session_state['budget'] = sorted_budget
+    # Check if the budget is already computed and stored in session_state
+    if 'budget' not in st.session_state:
+        analyser = analysisAgent(st.session_state['user_data'])
+        budget = analyser.mainModel()
+        sorted_budget = dict(sorted(budget.items(), key=lambda item: item[1], reverse=True))
+        st.session_state['budget'] = sorted_budget
     
     if st.button("Go Back"):
         st.session_state['page'] = "Input"
@@ -139,19 +141,17 @@ elif st.session_state['page'] == "Expense Input":
         st.session_state['page'] = "Output"
         st.rerun()
 
-elif st.session_state['page']=="ExpenseAnalysis" :
-    # st.json(st.session_state['expenses'])
-    # Extract content after <Think> tag
+elif st.session_state['page'] == "ExpenseAnalysis":
     sorted_budget = st.session_state['budget']
     st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
     fig = px.bar(
-    x=list(sorted_budget.keys()),
-    y=list(sorted_budget.values()),
-    labels={"x": "Category", "y": "Amount (INR)"},
-    title="Monthly Budget Allocation",
-    text=[f"{value:,}" for value in sorted_budget.values()],  # Add values as text on bars
-    color=list(sorted_budget.values()),  # Add color gradient
-    color_continuous_scale=px.colors.sequential.Viridis  # Use a color scale
+        x=list(sorted_budget.keys()),
+        y=list(sorted_budget.values()),
+        labels={"x": "Category", "y": "Amount (INR)"},
+        title="Monthly Budget Allocation",
+        text=[f"{value:,}" for value in sorted_budget.values()],  # Add values as text on bars
+        color=list(sorted_budget.values()),  # Add color gradient
+        color_continuous_scale=px.colors.sequential.Viridis  # Use a color scale
     )
     
     # Update layout for better readability
@@ -167,16 +167,21 @@ elif st.session_state['page']=="ExpenseAnalysis" :
     
     # Display the Plotly chart
     st.plotly_chart(fig, use_container_width=True)
+    
     if 'expenses' in st.session_state.keys():
-        spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'])
-        report = spendAnalyser.mainModel2()
-        st.write(report)
+        # Check if the spending analysis report is already computed and stored in session_state
+        if 'spending_report' not in st.session_state:
+            spendAnalyser = spendAgent(st.session_state['expenses'], st.session_state['budget'])
+            report = spendAnalyser.mainModel2()
+            st.session_state['spending_report'] = report
+        st.write(st.session_state['spending_report'])
+        
         if st.button("Go Back"):
             st.session_state['page'] = "Expense Input"
             st.rerun()
+    
     if st.button("Go Back"):
         st.session_state['page'] = "Output"
         st.rerun()
-
 
 
