@@ -95,14 +95,14 @@ def expenseForm():
     
     if submitted_expenses:
         st.session_state['expenses'] = {
-            "rent": rent,
-            "utilities": utilities,
-            "groceries": groceries,
-            "transportation": transportation,
-            "entertainment": entertainment,
-            "debtRepayment":debtRepayment,
-            "healthcare":healthcare,
-            "miscellaneous":miscellaneous 
+            "Rent": rent,
+            "Utilities": utilities,
+            "Groceries": groceries,
+            "Transportation": transportation,
+            "Entertainment": entertainment,
+            "DebtRepayment":debtRepayment,
+            "Healthcare":healthcare,
+            "Miscellaneous":miscellaneous 
         }
         st.session_state['page'] = "ExpenseAnalysis" 
         st.rerun()

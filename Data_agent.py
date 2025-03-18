@@ -50,12 +50,12 @@ class analysisAgent():
             "Transportation": XXXX,
             "Entertainment": XXXX,
             "Savings": XXXX,
-            "Debt Repayment": XXXX,
+            "DebtRepayment": XXXX,
             "Healthcare": XXXX,
             "Miscellaneous": XXXX
             }}
             ```
-            **DO NOT** provide any extra explanation—only return the requested JSON .
+            **DO NOT** provide any extra explanation—only return the requested JSON . Strictly follow this structure and do not change the name of the keys
         """
         # Call the model
         model = LLM_model(prompt)

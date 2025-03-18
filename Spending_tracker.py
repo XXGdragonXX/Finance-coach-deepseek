@@ -18,6 +18,30 @@ class spendAgent():
         totalIncome = sum(self.budgetInput.values())
         actualSaving = totalIncome - sum(self.input.values())
         del self.budgetInput['Savings']
+        # dataframe = pd.DataFrame(columns=['Expense','Budget','Spending','Difference','Status','Variance'])
+        tracker_list = []
+        for key in self.input.keys():
+            expense = key
+            Budget = self.budgetInput[key]
+            Spending = self.input[key]
+            Difference = Spending - Budget
+            if Difference < 0:
+                Status = "Underspending"
+            elif Difference > 0:
+                Status = "Overspending"
+            variance = (Difference/Budget)*100
+            trackerDict = {
+                "Expense":expense,
+                "Budget":Budget,
+                "Spending":Spending,
+                "Difference":Difference,
+                "Status":Status,
+                "Variance":variance
+            }
+            tracker_list.append(trackerDict)
+        dataframe = pd.DataFrame(tracker_list)
+        logging.info(dataframe)    
+            
         prompt = f"""
                 You are an expert in generating detailed financial reports. Below is the financial data provided:
 
@@ -43,23 +67,8 @@ class spendAgent():
                 6. Ensure the table is clear, concise, and easy to read.
                 7. Do not include any additional explanations or text outside the table.
         """
-        
-        model = LLM_model(prompt)
-        response = model.llm_model()
-        table_pattern = r"Expense\tBudgeted Amount\tActual Spending\tDifference\tStatus\tVariance \(%\)\n([\s\S]*?)\n\n"
-        table_match = re.search(table_pattern, response)
-        logging.info(table_match)
-        if table_match:
-            table = table_match.group(0).strip()
-            return table
-        else:
-            return response
-        # return f"""
-        #         saving by llm = {savingsbyLlm}
-        #         total income of the user  = {totalIncome}
-        #         actualSaving = {actualSaving}
-        
-        # """
+        return dataframe
+
 
     def mainModel2(self):
         output = self.giveSpendingAnalysis()
