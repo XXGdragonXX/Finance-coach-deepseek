@@ -94,6 +94,7 @@ def expenseForm():
         submitted_expenses = st.form_submit_button("Submit Expenses")
     
     if submitted_expenses:
+        del st.session_state['expenses']
         st.session_state['expenses'] = {
             "Rent": rent,
             "Utilities": utilities,
