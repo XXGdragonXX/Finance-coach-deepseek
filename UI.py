@@ -122,7 +122,30 @@ elif st.session_state['page'] == "Output":
     budget = analyser.mainModel()
     sorted_budget = dict(sorted(budget.items(), key=lambda item: item[1], reverse=True))
     st.session_state['budget'] = sorted_budget
-    fig = px.bar(
+    
+    if st.button("Go Back"):
+        st.session_state['page'] = "Input"
+        st.rerun()
+    if st.button("Analyse your spending habits"):
+        st.session_state['page'] = "Expense Input"
+        st.rerun()
+    elif st.button("View Budget Allocation"):
+        st.session_state['page'] = "ExpenseAnalysis"
+        st.rerun()
+
+elif st.session_state['page'] == "Expense Input":
+    expenseForm()
+    if st.button("Go Back"):
+        st.session_state['page'] == "Output"
+        st.rerun()
+
+elif st.session_state['page']=="ExpenseAnalysis" :
+    # st.json(st.session_state['expenses'])
+    report = spendAnalyser.mainModel2()
+    # Extract content after <Think> tag
+
+    st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
+        fig = px.bar(
         x=list(sorted_budget.keys()),
         y=list(sorted_budget.values()),
         labels={"x": "Category", "y": "Amount (INR)"},
@@ -145,28 +168,7 @@ elif st.session_state['page'] == "Output":
     
     # Display the Plotly chart
     st.plotly_chart(fig, use_container_width=True)
-
-    
-    if st.button("Go Back"):
-        st.session_state['page'] = "Input"
-        st.rerun()
-    if st.button("Analyse your spending Based on the fridge"):
-        st.session_state['page'] = "Expense Input"
-        st.rerun()
-
-elif st.session_state['page'] == "Expense Input":
-    expenseForm()
-    if st.button("Go Back"):
-        st.session_state['page'] == "Output"
-        st.rerun()
-
-elif st.session_state['page']=="ExpenseAnalysis" :
-    # st.json(st.session_state['expenses'])
     spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'])
-    report = spendAnalyser.mainModel2()
-    # Extract content after <Think> tag
-
-    st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
     st.write(report)
     if st.button("Go Back"):
         st.session_state['page'] = "Expense Input"
