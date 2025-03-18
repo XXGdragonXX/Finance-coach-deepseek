@@ -17,7 +17,6 @@ class spendAgent():
         savingsbyLlm = self.budgetInput['Savings']
         totalIncome = sum(self.budgetInput.values())
         actualSaving = totalIncome - sum(self.input.values())
-        del self.budgetInput['Savings']
         # dataframe = pd.DataFrame(columns=['Expense','Budget','Spending','Difference','Status','Variance'])
         tracker_list = []
         for key in self.input.keys():
