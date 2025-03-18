@@ -55,7 +55,9 @@ class analysisAgent():
             "Miscellaneous": XXXX
             }}
             ```
-            **DO NOT** provide any extra explanation—only return the requested JSON . Strictly follow this structure and do not change the name of the keys
+            **DO NOT** provide any extra explanation—only return the requested JSON . 
+            Strictly follow this structure and do not change the name of the keys. 
+            Allocate the income accordingly and do not provide any amount as 0
         """
         # Call the model
         model = LLM_model(prompt)
