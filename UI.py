@@ -133,6 +133,10 @@ elif st.session_state['page'] == "Output":
     elif st.button("View Budget Allocation", key="view_budget"):  # Unique key
         st.session_state['page'] = "ExpenseAnalysis"
         st.rerun()
+    elif st.button("Get new budget ", key="update_income"):
+        del st.session_state['budget']
+        st.session_state['page'] = "Output"
+        st.rerun()
 
 elif st.session_state['page'] == "Expense Input":
     expenseForm()
