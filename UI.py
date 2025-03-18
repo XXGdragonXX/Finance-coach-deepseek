@@ -171,8 +171,11 @@ elif st.session_state['page']=="ExpenseAnalysis" :
         spendAnalyser = spendAgent(st.session_state['expenses'],st.session_state['budget'])
         report = spendAnalyser.mainModel2()
         st.write(report)
+        if st.button("Go Back"):
+            st.session_state['page'] = "Expense Input"
+            st.rerun()
     if st.button("Go Back"):
-        st.session_state['page'] = "Expense Input"
+        st.session_state['page'] = "Output"
         st.rerun()
 
 
