@@ -71,7 +71,7 @@ class spendAgent():
 
     def mainModel2(self):
         output = self.giveSpendingAnalysis()
-        if output.empty():
+        if output.empty:
             return f"could not generate the output"
         else : 
             return output
