@@ -175,7 +175,7 @@ elif st.session_state['page'] == "ExpenseAnalysis":
             st.session_state['spending_report'] = report
         st.write(st.session_state['spending_report'])
         
-        if st.button("Go Back", key="expense_analysis_go_back_1"):  # Unique key
+        if st.button("Update Expenses", key="expense_analysis_go_back_1"):  # Unique key
             del st.session_state['expenses']
             del st.session_state['spending_report']
             st.session_state['page'] = "Expense Input"
