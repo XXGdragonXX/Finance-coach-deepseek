@@ -145,14 +145,14 @@ elif st.session_state['page']=="ExpenseAnalysis" :
     # Extract content after <Think> tag
 
     st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
-        fig = px.bar(
-        x=list(sorted_budget.keys()),
-        y=list(sorted_budget.values()),
-        labels={"x": "Category", "y": "Amount (INR)"},
-        title="Monthly Budget Allocation",
-        text=[f"{value:,}" for value in sorted_budget.values()],  # Add values as text on bars
-        color=list(sorted_budget.values()),  # Add color gradient
-        color_continuous_scale=px.colors.sequential.Viridis  # Use a color scale
+    fig = px.bar(
+    x=list(sorted_budget.keys()),
+    y=list(sorted_budget.values()),
+    labels={"x": "Category", "y": "Amount (INR)"},
+    title="Monthly Budget Allocation",
+    text=[f"{value:,}" for value in sorted_budget.values()],  # Add values as text on bars
+    color=list(sorted_budget.values()),  # Add color gradient
+    color_continuous_scale=px.colors.sequential.Viridis  # Use a color scale
     )
     
     # Update layout for better readability
