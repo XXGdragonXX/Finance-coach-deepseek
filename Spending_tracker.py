@@ -40,7 +40,7 @@ class spendAgent():
             }
             tracker_list.append(trackerDict)
         dataframe = pd.DataFrame(tracker_list)
-        logging.info(dataframe)    
+        logging.info(dataframe.head())    
             
         prompt = f"""
                 You are an expert in generating detailed financial reports. Below is the financial data provided:
