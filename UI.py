@@ -140,7 +140,6 @@ elif st.session_state['page'] == "Output":
 elif st.session_state['page'] == "budgetPage":
     st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
     sorted_budget = st.session_state['budget']
-    st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
     fig = px.bar(
         x=list(sorted_budget.keys()),
         y=list(sorted_budget.values()),
@@ -161,6 +160,11 @@ elif st.session_state['page'] == "budgetPage":
         showlegend=False, 
         hovermode="x unified"  
     )
+    st.plotly_chart(fig, use_container_width=True)
+    if st.button("Go Back", key="budget_go_back"):  # Unique key
+        st.session_state['page'] = "Output"
+        st.rerun()
+
     
 
 elif st.session_state['page'] == "Expense Input":
