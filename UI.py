@@ -131,12 +131,37 @@ elif st.session_state['page'] == "Output":
         st.session_state['page'] = "Expense Input"
         st.rerun()
     elif st.button("View Budget Allocation", key="view_budget"):  # Unique key
-        st.session_state['page'] = "ExpenseAnalysis"
+        st.session_state['page'] = "budgetPage"
         st.rerun()
     elif st.button("Get new budget ", key="update_income"):
         del st.session_state['budget']
         st.session_state['page'] = "Output"
         st.rerun()
+elif st.session_state['page'] == "budgetPage":
+    st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
+    sorted_budget = st.session_state['budget']
+    st.subheader(f" {st.session_state['user_data']['user']['name']}'s Budget Report")
+    fig = px.bar(
+        x=list(sorted_budget.keys()),
+        y=list(sorted_budget.values()),
+        labels={"x": "Category", "y": "Amount (INR)"},
+        title="Monthly Budget Allocation",
+        text=[f"{value:,}" for value in sorted_budget.values()],  # Add values as text on bars
+        color=list(sorted_budget.values()),  # Add color gradient
+        color_continuous_scale=px.colors.sequential.Viridis  # Use a color scale
+    )
+    
+    # Update layout for better readability
+    fig.update_traces(textposition='outside')  
+    fig.update_layout(
+        xaxis_title="Category",
+        yaxis_title="Amount (INR)",
+        title_font_size=20,
+        title_x=0.5,  
+        showlegend=False, 
+        hovermode="x unified"  
+    )
+    
 
 elif st.session_state['page'] == "Expense Input":
     expenseForm()
