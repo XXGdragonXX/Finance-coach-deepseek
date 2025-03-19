@@ -28,7 +28,7 @@ class spendAgent():
                 Status = "Underspending"
             elif Difference > 0:
                 Status = "Overspending"
-            elif: Difference == 0:
+            elif Difference == 0:
                 Status = "On Budget"
             variance = (Difference/Budget)*100
             trackerDict = {
